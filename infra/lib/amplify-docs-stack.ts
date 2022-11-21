@@ -43,6 +43,13 @@ export class AmplifyDocsStack extends cdk.Stack {
     const mainBranch = amplifyApp.addBranch('main')
     const archiveBranch = amplifyApp.addBranch('archive')
 
+    const domain = amplifyApp.addDomain(targetDomain, {
+      enableAutoSubdomain: false
+    })
+
+    domain.mapRoot(mainBranch)
+    domain.mapSubDomain(archiveBranch)
+
     amplifyApp.addCustomRule({
       source: '/archive/<*>',
       target: `https://archive.${targetDomain}/<*>`,
@@ -54,16 +61,16 @@ export class AmplifyDocsStack extends cdk.Stack {
       status: amplify.RedirectStatus.REWRITE
     })
     amplifyApp.addCustomRule({
+      source: '/',
+      target: '/docs',
+      status: amplify.RedirectStatus.TEMPORARY_REDIRECT
+    })
+    amplifyApp.addCustomRule({
       source: '/<*>',
       target: '/404.html',
       status: amplify.RedirectStatus.NOT_FOUND_REWRITE
     })
 
-    const domain = amplifyApp.addDomain(targetDomain, {
-      enableAutoSubdomain: false
-    })
-
-    domain.mapRoot(mainBranch)
-    domain.mapSubDomain(archiveBranch)
+    // kick off builds for main and archive?
   }
 }
