@@ -50,7 +50,7 @@ export class AmplifyDocsStack extends cdk.Stack {
 
     // Add our custom domain to the application. As long as the domain resolves to a locally
     // hosted Route53 zone, this will automatically provision an SSL certificate using DNS validation
-    // without explicitly asking for it
+    // without explicitly constructing an ACM request elsewhere in the code
     const domain = amplifyApp.addDomain(targetDomain, {
       // we don't want to auto-register subdomains for branches; we will manually control which branches
       // get a subdomain (see below)
