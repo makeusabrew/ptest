@@ -57,7 +57,11 @@ export class AmplifyDocsStack extends cdk.Stack {
       enableAutoSubdomain: false
     })
 
-    const mainBranch = amplifyApp.addBranch('main')
+    const mainBranch = amplifyApp.addBranch('main', {
+      // we need to explicitly tag this branch as the prod branch to iron out some kinks in
+      // the AWS console (@see https://github.com/aws/aws-cdk/issues/18863)
+      stage: 'PRODUCTION'
+    })
     const archiveBranch = amplifyApp.addBranch('archive')
 
     // map the main/master branch to the root of targetDomain
