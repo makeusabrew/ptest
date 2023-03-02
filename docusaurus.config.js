@@ -9,10 +9,18 @@ const config = {
   title: 'My Site',
   tagline: 'Dinosaurs are cool',
   url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/docs',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  scripts: [
+    {
+      src: "https://www.feedbackrocket.io/sdk/v1.0.0.js",
+      "data-fr-id": "HlTKsrkOS2F49y3o2tJPS",
+      "data-fr-theme": "light",
+      defer: true
+    }
+  ],
 
   trailingSlash: true,
 
@@ -68,6 +76,11 @@ const config = {
             label: 'Tutorial',
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            type: "html",
+            position: "right",
+            value: '<a href=# class="navbar__link" data-fr-widget>Give us Feedback</a>',
+          },
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
